@@ -49,26 +49,15 @@ public class SellerDaoJDBC implements SellerDao {
                         "ON seller.DepartmentId = department.Id " +
                         "WHERE seller.Id = ?"
         )) {
-            ps.setInt(1, 3);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                Department department = new Department();
-
-                department.setId(rs.getInt("DepartmentId"));
-                department.setName(rs.getString("DepName"));
-
-                Seller seller = new Seller();
-                seller.setId(rs.getInt("Id"));
-                seller.setName(rs.getString("Name"));
-                seller.setEmail(rs.getString("Email"));
-                seller.setBirthDate(rs.getObject("BirthDate", LocalDate.class));
-                seller.setBaseSalary(rs.getDouble("BaseSalary"));
-                seller.setDepartment(department);
+                Department department = instantiateDepartment(rs);
+                Seller seller = instantiateSeller(rs, department);
 
                 return seller;
             }
-
             return null;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -80,5 +69,27 @@ public class SellerDaoJDBC implements SellerDao {
     @Override
     public List<Seller> findAll() {
         return List.of();
+    }
+
+    private Department instantiateDepartment(ResultSet rs) throws SQLException {
+        Department department = new Department();
+
+        department.setId(rs.getInt("DepartmentId"));
+        department.setName(rs.getString("DepName"));
+
+        return department;
+    }
+
+    private Seller instantiateSeller(ResultSet rs, Department department) throws SQLException {
+        Seller seller = new Seller();
+
+        seller.setId(rs.getInt("Id"));
+        seller.setName(rs.getString("Name"));
+        seller.setEmail(rs.getString("Email"));
+        seller.setBirthDate(rs.getObject("BirthDate", LocalDate.class));
+        seller.setBaseSalary(rs.getDouble("BaseSalary"));
+        seller.setDepartment(department);
+
+        return seller;
     }
 }
