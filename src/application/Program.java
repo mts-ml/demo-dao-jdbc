@@ -35,17 +35,21 @@ public class Program {
 
 
 //        Comentado para não ficar inserindo toda hora
-//        System.out.println("Teste 4: Seller insert");
+//        System.out.println("Teste 4: Seller INSERT");
 //        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", DateUtils.parseDate("20/07/1995"), 4000.0, new Department(2, null));
 //        sellerDao.insert(newSeller);
 //        System.out.println(newSeller);
 
 
-        System.out.println("Teste 5: Seller update");
+        System.out.println("Teste 5: Seller UPDATE");
         Seller choosenSeller = sellerDao.findById(15);
         choosenSeller.setName("Melzeira");
         sellerDao.update(choosenSeller);
         System.out.println(choosenSeller);
+        System.out.println();
+
+        System.out.println("Teste 6: Seller DELETE");
+        sellerDao.deleteById(15);
         System.out.println();
     }
 }
