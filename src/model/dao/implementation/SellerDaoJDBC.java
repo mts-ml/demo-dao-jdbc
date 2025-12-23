@@ -90,9 +90,14 @@ public class SellerDaoJDBC implements SellerDao {
                         "WHERE Id = ?"
         )) {
             ps.setInt(1, id);
-            ps.executeUpdate();
 
-            System.out.println("Deletion completed");
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Deletion completed");
+            } else {
+                throw new DbException("Error, id " + id + " not found!");
+            }
+
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
