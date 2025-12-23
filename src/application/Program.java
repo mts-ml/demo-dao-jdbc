@@ -42,14 +42,14 @@ public class Program {
 
 
         System.out.println("Teste 5: Seller UPDATE");
-        Seller choosenSeller = sellerDao.findById(15);
-        choosenSeller.setName("Melzeira");
-        sellerDao.update(choosenSeller);
-        System.out.println(choosenSeller);
+        Seller chosenSeller = sellerDao.findById(1);
+        chosenSeller.setName("Melzeira");
+        sellerDao.update(chosenSeller);
+        System.out.println(chosenSeller);
         System.out.println();
 
         System.out.println("Teste 6: Seller DELETE");
-        sellerDao.deleteById(15);
+        sellerDao.deleteById(25);
         System.out.println();
     }
 }
