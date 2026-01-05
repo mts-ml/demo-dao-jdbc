@@ -26,13 +26,10 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         ResultSet rs = null;
 
         try (PreparedStatement ps = connection.prepareStatement(
-                "INSERT INTO department " +
-                        ("Name") +
-                        "VALUES " +
-                        "(?)",
+                "INSERT INTO department (Name) VALUES (?)",
                 Statement.RETURN_GENERATED_KEYS
         )) {
-            ps.setString(1, "Cars");
+            ps.setString(1, obj.getName());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -53,7 +50,21 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void update(Department obj) {
+        try (PreparedStatement ps = connection.prepareStatement(
+                "UPDATE department " +
+                        "SET NAME = ? " +
+                        "WHERE Id = ?"
+        )) {
+            ps.setString(1, obj.getName());
+            ps.setInt(2, obj.getId());
 
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new DbException("Error, department with id: " + obj.getId() + ", not found!");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
     }
 
     @Override
