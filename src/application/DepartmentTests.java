@@ -1,5 +1,6 @@
 package application;
 
+import db.DbException;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.entities.Department;
@@ -22,19 +23,24 @@ public class DepartmentTests {
         System.out.println(department);
         System.out.println();
 
-        System.out.println("Teste 3: department: insert()");
-        Department newDepartmentObj = new Department(null, "Cars");
-        departmentDao.insert(newDepartmentObj);
-        System.out.println(newDepartmentObj);
-        System.out.println();
+        // Comentado para não ficar inserindo toda hora
+//        System.out.println("Teste 3: department insert()");
+//        Department newDepartmentObj = new Department(null, "Cars");
+//        departmentDao.insert(newDepartmentObj);
+//        System.out.println(newDepartmentObj);
+//        System.out.println();
 
-        System.out.println("Teste 4: department: update()");
+        System.out.println("Teste 4: department update()");
         Department chosenDepartment = departmentDao.findById(4);
-        chosenDepartment.setName("Motorcycles");
+        chosenDepartment.setName("Books");
 
         departmentDao.update(chosenDepartment);
         System.out.println(chosenDepartment);
         System.out.println();
+
+        System.out.println("Teste 5: department deleteById()");
+        departmentDao.deleteById(10);
+        System.out.println("Deletion successfully");
+        System.out.println();
     }
 }
-
