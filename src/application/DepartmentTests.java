@@ -18,8 +18,23 @@ public class DepartmentTests {
         System.out.println();
 
         System.out.println("Teste 2: department findById()");
-        Department department = departmentDao.findById(5);
+        Department department = departmentDao.findById(4);
         System.out.println(department);
+        System.out.println();
+
+        System.out.println("Teste 3: department: insert()");
+        Department newDepartmentObj = new Department(null, "Cars");
+        departmentDao.insert(newDepartmentObj);
+        System.out.println(newDepartmentObj);
+        System.out.println();
+
+        System.out.println("Teste 4: department: update()");
+        Department chosenDepartment = departmentDao.findById(4);
+        chosenDepartment.setName("Motorcycles");
+
+        departmentDao.update(chosenDepartment);
+        System.out.println(chosenDepartment);
         System.out.println();
     }
 }
+
